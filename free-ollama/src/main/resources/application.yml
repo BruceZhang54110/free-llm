@@ -14,8 +14,8 @@ langchain4j:
             model-name: llama2
 logging:
     level:
-        root: DEBUG
+        root: info
         dev:
-            langchain4j: DEBUG
+            langchain4j: info
             ai4j:
-                openai4j: DEBUG
+                openai4j: info
