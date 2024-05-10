@@ -73,6 +73,11 @@
                 <artifactId>junit-jupiter-engine</artifactId>
                 <version>5.10.0</version>
             </dependency>
+            <dependency>
+                <groupId>dev.langchain4j</groupId>
+                <artifactId>langchain4j-pgvector</artifactId>
+                <version>0.30.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

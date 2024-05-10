@@ -1,6 +1,15 @@
+server:
+    port: 8080
 spring:
     application:
         name: free-ollama
+logging:
+    level:
+        root: info
+        dev:
+            langchain4j: trace
+            ai4j:
+                openai4j: trace
 langchain4j:
     ollama:
         chatModel:
@@ -12,10 +21,18 @@ langchain4j:
         language-model:
             base-url: http://localhost:11434
             model-name: llama2
-logging:
-    level:
-        root: info
-        dev:
-            langchain4j: info
-            ai4j:
-                openai4j: info
+
+# postgreSQL Vector
+pg:
+    vector:
+        enable: true
+        host: localhost
+        port: 5432
+        database: llm_vector
+        user: zhw
+        password: langChain4j
+        table: llm_embedding
+        dimension: 384
+        indexListSize: 1024
+
+

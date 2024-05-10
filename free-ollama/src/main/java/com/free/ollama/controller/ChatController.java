@@ -12,19 +12,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
-import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
 
 @Slf4j
-@Controller
+@RequestMapping("/chat")
+@RestController
 public class ChatController {
 
     private Assistant assistant;
@@ -33,13 +29,19 @@ public class ChatController {
         this.assistant = assistant;
     }
 
-    @GetMapping("/assistant")
-    public String assistant(@RequestParam(value = "message", defaultValue = "What is the Chinese time now?") String message) {
+
+    @GetMapping("/hello")
+    public String hello() {
+        return "hello";
+    }
+
+    @RequestMapping("/query")
+    public String assistant(@RequestParam(value = "message") String message) {
         return assistant.chat(message);
     }
 
-    @RequestMapping("/assistant1")
-    public SseEmitter assistantStream(@RequestParam(value = "message", defaultValue = "What is the Chinese time now?") String message
+    @RequestMapping("/stream")
+    public SseEmitter assistantStream(@RequestParam(value = "message") String message
     , HttpServletResponse response) {
         response.setContentType("text/event-stream");
         response.setCharacterEncoding("UTF-8");
