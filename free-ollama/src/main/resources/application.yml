@@ -14,18 +14,18 @@ langchain4j:
     ollama:
         chatModel:
             base-url: http://localhost:11434
-            model-name: llama2
+            model-name: llama2-chinese
         streaming-chat-model:
             base-url: http://localhost:11434
-            model-name: llama2
+            model-name: llama2-chinese
         language-model:
             base-url: http://localhost:11434
-            model-name: llama2
+            model-name: llama2-chinese
 
 # postgreSQL Vector
 pg:
     vector:
-        enable: true
+        enable: false
         host: localhost
         port: 5432
         database: llm_vector
@@ -34,5 +34,15 @@ pg:
         table: llm_embedding
         dimension: 384
         indexListSize: 1024
+
+elasticsearch:
+    vector:
+        enable: true
+        server-url: https://localhost:9200
+        user-name: elastic
+        pass-word: 123456
+        index-name: llm_vector
+        dimension: 384
+
 
 

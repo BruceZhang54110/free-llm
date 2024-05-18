@@ -4,9 +4,12 @@ import com.free.ollama.aiservice.Assistant;
 import dev.langchain4j.service.TokenStream;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -29,6 +33,9 @@ public class ChatController {
         this.assistant = assistant;
     }
 
+    @Qualifier("taskExecutor1")
+    @Autowired
+    private ThreadPoolTaskExecutor taskExecutor1;
 
     @GetMapping("/hello")
     public String hello() {
@@ -46,15 +53,20 @@ public class ChatController {
         response.setContentType("text/event-stream");
         response.setCharacterEncoding("UTF-8");
         SseEmitter emitter = new SseEmitter();
+
         TokenStream tokenStream = assistant.chatStream(message);
         tokenStream.onNext(s -> {
-            try {
-                System.out.println("=" + s);
-                emitter.send(s, MediaType.TEXT_EVENT_STREAM);
-            } catch (IOException e) {
-                log.error(e.getMessage(), e);
-                emitter.completeWithError(e);
-            }
+            CompletableFuture.runAsync(() -> {
+                try {
+                    if (log.isDebugEnabled()) {
+                        log.debug("send message:" + message);
+                    }
+                    emitter.send(message, MediaType.TEXT_EVENT_STREAM);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }, taskExecutor1);
         }).onComplete(aiMessageResponse -> {emitter.complete();}).onError(throwable -> log.error(throwable.getMessage(), throwable)).start();
 
         return emitter;
