@@ -58,7 +58,7 @@ public class AssistantConfiguration {
         return new CompressingQueryTransformer(chatLanguageModel);
     }
 
-    //@Bean
+    @Bean
     RetrievalAugmentor retrievalAugmentor(QueryTransformer queryTransformer, EmbeddingStore<TextSegment> embeddingStore, EmbeddingModel embeddingModel) {
         int maxResults = 3;
         double minScore = 0.0;
