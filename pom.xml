@@ -85,6 +85,11 @@
                 <artifactId>langchain4j-elasticsearch</artifactId>
                 <version>${langchain4j.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.24</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

@@ -1,0 +1,12 @@
+spring:
+    application:
+        name: free-agent
+embedding-store:
+    elasticsearch:
+        hostname: localhost:9200
+        port: 9200
+        scheme: https
+        user-name: elastic
+        pass-word: 123456
+        index-name: llm_vector
+        dimension: 384
