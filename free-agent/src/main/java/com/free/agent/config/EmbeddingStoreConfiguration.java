@@ -2,6 +2,7 @@ package com.free.agent.config;
 
 import dev.langchain4j.store.embedding.elasticsearch.ElasticsearchEmbeddingStore;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -12,6 +13,7 @@ import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.ssl.SSLContexts;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestClientBuilder;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -35,6 +37,7 @@ import java.security.cert.CertificateFactory;
 /**
  * 向量存储配置
  */
+@Slf4j
 @Data
 @EnableConfigurationProperties(value = EmbeddingStoreConfiguration.class)
 @ConfigurationProperties(prefix = "embedding-store.elasticsearch")
@@ -59,12 +62,15 @@ public class EmbeddingStoreConfiguration {
      * @return ElasticsearchEmbeddingStore
      */
     @Bean
+    @ConditionalOnProperty(value = "embedding-store.elasticsearch.enable", havingValue = "true")
     public ElasticsearchEmbeddingStore elasticsearchEmbeddingStore(ResourceLoader resourceLoader) throws CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
-        return ElasticsearchEmbeddingStore.builder()
+        ElasticsearchEmbeddingStore elasticsearchEmbeddingStore = ElasticsearchEmbeddingStore.builder()
                 .indexName(indexName)
                 .dimension(dimension)
                 .restClient(makeHttpsRestClient(hostname, port, scheme, userName, password, resourceLoader))
                 .build();
+        log.info("elasticsearchEmbeddingStore init [{}:{}] success", hostname, port);
+        return elasticsearchEmbeddingStore;
     }
 
     /**

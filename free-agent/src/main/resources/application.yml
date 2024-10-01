@@ -3,7 +3,8 @@ spring:
         name: free-agent
 embedding-store:
     elasticsearch:
-        hostname: localhost:9200
+        enable: false
+        hostname: localhost
         port: 9200
         scheme: https
         user-name: elastic
