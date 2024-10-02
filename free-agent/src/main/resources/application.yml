@@ -1,6 +1,27 @@
 spring:
     application:
         name: free-agent
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        url: jdbc:postgresql://localhost:5432/free_llm_db?TimeZone=Asia/Shanghai
+        username: free_llm
+        password: 123456
+        type: com.zaxxer.hikari.HikariDataSource
+        Hikari:
+            # 连接池中允许的最小连接数。缺省值：10
+            minimum-idle: 10
+            # 连接池中允许的最大连接数。缺省值：10
+            maximum-pool-size: 15
+            # 自动提交
+            auto-commit: true
+            # 一个连接idle状态的最大时长（毫秒），超时则被释放（retired），缺省:10分钟
+            idle-timeout: 600000
+            # 连接池名字
+            pool-name: YIXGHikariCP
+            # 一 个连接的生命时长（毫秒），超时而且没被使用则被释放（retired），缺省:30分钟，建议设置比数据库超时时长少30秒
+            max-lifetime: 1800000
+            # 等待连接池分配连接的最大时长（毫秒），超过这个时长还没可用的连接则发生SQLExcepti on， 缺省:30秒
+            connection-timeout: 30000
 embedding-store:
     elasticsearch:
         enable: false
@@ -11,3 +32,7 @@ embedding-store:
         pass-word: 123456
         index-name: llm_vector
         dimension: 384
+minio:
+    url: http://localhost:4454
+    access-key: sdfsdf
+    secret-key: exxxxxx
