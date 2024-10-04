@@ -6,6 +6,8 @@
 - LangChain4j-Ollama - LangChain4j extension for Ollama
 - LangChain4j-SpringBoot - LangChain4j extension for Spring Boot
 
+前端尝试使用 vaddin https://vaadin.com/
+
 langchain4j repo：[langchain4j](https://github.com/langchain4j)
 
 Ollama官方网站：[Ollama](https://ollama.com/)
