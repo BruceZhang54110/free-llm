@@ -9,6 +9,7 @@
             <result property="fileName" column="file_name" jdbcType="VARCHAR"/>
             <result property="fileSize" column="file_size" jdbcType="BIGINT"/>
             <result property="filePath" column="file_path" jdbcType="VARCHAR"/>
+            <result property="bucketName" column="bucket_name" jdbcType="VARCHAR"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
             <result property="deleted" column="deleted" jdbcType="BOOLEAN"/>
     </resultMap>

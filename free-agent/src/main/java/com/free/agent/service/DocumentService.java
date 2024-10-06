@@ -1,4 +1,5 @@
 package com.free.agent.service;
+import io.minio.ObjectWriteResponse;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -16,9 +17,9 @@ public interface DocumentService {
     /**
      * After the file is successfully uploaded, the data needs to be inserted into the database
      * @param fileName upload file name
-     * @param filePath The file path generated after successful upload
+     * @param objectWriteResponse The file path generated after successful upload
      * @return Is the operation successful
      */
-    boolean insertUploadFileData(Long fileSize, String fileName, String filePath);
+    boolean insertUploadFileData(Long fileSize, String fileName, ObjectWriteResponse objectWriteResponse);
 
 }

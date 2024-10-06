@@ -34,7 +34,7 @@ public class MinioServiceImpl implements MinioService {
 
     private final MinioClient minioClient;
 
-    public String uploadMultipartFile(MultipartFile multipartFile, MinioUploadPath minioUploadPath) {
+    public ObjectWriteResponse uploadMultipartFile(MultipartFile multipartFile, MinioUploadPath minioUploadPath) {
         try {
             String extName = FileUtil.extName(multipartFile.getOriginalFilename());
             String objectName = minioUploadPath.getObjectPath() + DateUtil.today() + File.separator + IdUtil.simpleUUID() + "." + extName;
@@ -43,8 +43,7 @@ public class MinioServiceImpl implements MinioService {
                     .contentType(multipartFile.getContentType())
                     .stream(multipartFile.getInputStream(), multipartFile.getSize(), -1)
                     .build();
-            ObjectWriteResponse objectWriteResponse = minioClient.putObject(putObjectArgs);
-            return objectWriteResponse.object();
+            return minioClient.putObject(putObjectArgs);
         } catch (ErrorResponseException
                  | InsufficientDataException
                  | InternalException
