@@ -31,15 +31,22 @@ spring:
             connection-timeout: 30000
 embedding-store:
     elasticsearch:
-        enable: false
+        enable: true
         hostname: localhost
         port: 9200
         scheme: https
         user-name: elastic
         pass-word: 123456
-        index-name: llm_vector
-        dimension: 384
+        index-name: free_llm_embedding
+        dimension: 1024
 minio:
     url: http://127.0.0.1:9000
     access-key: ENC(N2icJuGi5fCuPCrNEC4ft7Tg1dGj7M16KvydkwQgF1Go3mgFcZPcohpPG2P220QQ)
     secret-key: ENC(eZZ0bVmrg697PAzWY/VXpvzR119lWxNxCLxRyyemXyrb0G54EwYhLf5vwfYPgJFutrLrp2/mNlIw2vw5k+fpcw==)
+zhipuai:
+    api-key: ENC(Rd7ystSTbB0JYyf6KCXXLhrXLtR7hMq7dvRhpoJI1y1YDIAhvfdwyNCiEashKr7m/I8aj+SZv3Ehrkz5VOpuvliafFJA7WuudWHSLbktaEde8eDLfpnNFuCcJWg0RHCM)
+    max-retries: 1
+    model: embedding-2
+    log-requests: true
+    log-responses: true
+

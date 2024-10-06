@@ -2,20 +2,38 @@ package com.free.agent.config;
 
 import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.model.zhipu.ZhipuAiEmbeddingModel;
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.time.Duration;
 
+@EnableConfigurationProperties
+@ConfigurationProperties(prefix = "zhipuai")
+@Data
 @Configuration
 public class EmbeddingModelConfiguration {
 
-    /*public EmbeddingModel embeddingModel() {
+    private String apiKey;
+
+    private Integer maxRetries;
+
+    private String model;
+
+    private Boolean logRequests;
+
+    private Boolean logResponses;
+
+    @Bean
+    public EmbeddingModel zhipuAiEmbeddingModel() {
         return ZhipuAiEmbeddingModel.builder()
-                .apiKey("apiKey")
-                .model(dev.langchain4j.model.zhipu.embedding.EmbeddingModel.EMBEDDING_2.toString())
-                .logRequests(true)
-                .logResponses(true)
-                .maxRetries(1)
+                .apiKey(apiKey)
+                .model(model)
+                .logRequests(logRequests)
+                .logResponses(logResponses)
+                .maxRetries(maxRetries)
                 .build();
-    }*/
+    }
 }
