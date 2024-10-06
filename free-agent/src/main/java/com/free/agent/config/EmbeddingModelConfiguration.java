@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import java.time.Duration;
 
 @EnableConfigurationProperties
-@ConfigurationProperties(prefix = "zhipuai")
+@ConfigurationProperties(prefix = "zhipu-ai-embedding-model")
 @Data
 @Configuration
 public class EmbeddingModelConfiguration {
