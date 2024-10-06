@@ -3,7 +3,7 @@ package com.free.agent.service.impl;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.IdUtil;
-import com.free.agent.common.MinioUploadType;
+import com.free.agent.common.MinioUploadPath;
 import com.free.agent.common.ResultCode;
 import com.free.agent.common.ex.BusinessException;
 import com.free.agent.config.MinioConfiguration;
@@ -22,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -33,11 +34,11 @@ public class MinioServiceImpl implements MinioService {
 
     private final MinioClient minioClient;
 
-    public String uploadMultipartFile(String bucketName, MultipartFile multipartFile, MinioUploadType minioUploadType) {
+    public String uploadMultipartFile(MultipartFile multipartFile, MinioUploadPath minioUploadPath) {
         try {
             String extName = FileUtil.extName(multipartFile.getOriginalFilename());
-            String objectName = DateUtil.today() + "_" + IdUtil.simpleUUID() + "." + extName;
-            PutObjectArgs putObjectArgs = MinioConfiguration.buildPutObjectArgs(bucketName)
+            String objectName = minioUploadPath.getObjectPath() + DateUtil.today() + File.separator + IdUtil.simpleUUID() + "." + extName;
+            PutObjectArgs putObjectArgs = MinioConfiguration.buildPutObjectArgs(MinioUploadPath.BUCKET_NAME.getObjectPath())
                     .object(objectName)
                     .contentType(multipartFile.getContentType())
                     .stream(multipartFile.getInputStream(), multipartFile.getSize(), -1)

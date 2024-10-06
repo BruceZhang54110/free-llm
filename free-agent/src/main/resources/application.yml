@@ -1,11 +1,18 @@
+logging:
+    level:
+        root: info
+        com:
+            free:
+                agent:
+                    db: DEBUG
 spring:
     application:
         name: free-agent
     datasource:
         driver-class-name: org.postgresql.Driver
         url: jdbc:postgresql://localhost:5432/free_llm_db?TimeZone=Asia/Shanghai
-        username: free_llm
-        password: 123456
+        username: ENC(RgoixuWhvO+/bTbgWNQCOR9nNc1ItiZ7C3LzC26AN/Mvtq1FmyFDAP50pptZ0KZk)
+        password: ENC(z/mwhIGSWfKuLZ9YghP/jiQ9sjn2nOn5jnq5+q0qDfG8zghS5K8GENKgR9iP/hYN)
         type: com.zaxxer.hikari.HikariDataSource
         Hikari:
             # 连接池中允许的最小连接数。缺省值：10
@@ -33,6 +40,6 @@ embedding-store:
         index-name: llm_vector
         dimension: 384
 minio:
-    url: http://localhost:4454
-    access-key: sdfsdf
-    secret-key: exxxxxx
+    url: http://127.0.0.1:9000
+    access-key: ENC(N2icJuGi5fCuPCrNEC4ft7Tg1dGj7M16KvydkwQgF1Go3mgFcZPcohpPG2P220QQ)
+    secret-key: ENC(eZZ0bVmrg697PAzWY/VXpvzR119lWxNxCLxRyyemXyrb0G54EwYhLf5vwfYPgJFutrLrp2/mNlIw2vw5k+fpcw==)
